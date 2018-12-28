@@ -1,0 +1,10 @@
+{
+  "clientId": "RiMx52JTjy6L9At1dnmk3A==",
+  "clientKey": "yzSabvy0eKIrV5MgpgkJ0gJjgq2YqHszKA27iyaPwcLENbw35oFXF_SqNFnLidR70WRRx1qo_f1umWSQEmCntA==",
+
+  "port": 3446,
+
+  "https": false,
+  "sslKeyFile": "server.key",
+  "sslCrtFile": "server.crt"
+}
