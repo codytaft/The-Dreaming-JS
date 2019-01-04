@@ -1,13 +1,13 @@
-var responseElt = document.getElementById('responseJSON');
-var infoElt = document.getElementById('infoJSON');
 var statusElt = document.getElementById('status');
 var transcriptElt = document.getElementById('query');
-
 var clientID = 'RiMx52JTjy6L9At1dnmk3A==';
 var conversationState = null;
 var voiceRequest = null;
 
 var recorder = new Houndify.AudioRecorder();
+
+var textResult;
+
 recorder.on('start', function() {
   //Initialize VoiceRequest
   voiceRequest = initVoiceRequest(recorder.sampleRate);
@@ -36,10 +36,10 @@ recorder.on('error', function(error) {
 });
 
 function initVoiceRequest(sampleRate) {
-  responseElt.parentNode.hidden = true;
-  infoElt.parentNode.hidden = true;
+  // responseElt.parentNode.hidden = true;
+  // infoElt.parentNode.hidden = true;
 
-  var voiceRequest = new Houndify.VoiceRequest({
+  let voiceRequest = new Houndify.VoiceRequest({
     //Your Houndify Client ID
     clientId: clientID,
 
@@ -111,24 +111,64 @@ function onResponse(response, info) {
     conversationState = response.AllResults[0].ConversationState;
   }
 
-  statusElt.innerText = 'Received response.';
-  responseElt.parentNode.hidden = false;
-  responseElt.value = response.stringify(undefined, 2);
-  infoElt.parentNode.hidden = false;
-  infoElt.value = JSON.stringify(info, undefined, 2);
+  textResult = response.AllResults[0].WrittenResponse;
+  statusElt.innerText = textResult;
+  console.log(response.AllResults[0].WrittenResponse);
+  // responseElt.parentNode.hidden = false;
+  // responseElt.value = response.stringify(undefined, 2);
+  // infoElt.parentNode.hidden = false;
+  // infoElt.value = JSON.stringify(info, undefined, 2);
 }
 
 //Fires if error occurs during the request
 function onError(err, info) {
   statusElt.innerText = 'Error: ' + JSON.stringify(err);
-  responseElt.parentNode.hidden = true;
-  infoElt.parentNode.hidden = false;
-  infoElt.value = JSON.stringify(info, undefined, 2);
+  // responseElt.parentNode.hidden = true;
+  // infoElt.parentNode.hidden = false;
+  // infoElt.value = JSON.stringify(info, undefined, 2);
 }
 
 //Fires every time backend sends a speech-to-text
 //transcript of a voice query
 //See https://houndify.com/reference/HoundPartialTranscript
+
 function onTranscriptionUpdate(transcript) {
   transcriptElt.value = transcript.PartialTranscript;
 }
+
+function onSaveClick() {
+  let date = document.getElementById('date-input').value;
+  let dream = document.getElementById('query').value;
+  saveDreamToDatabase(date, dream);
+}
+
+//api calls
+
+saveDreamToDatabase = async (date, dream) => {
+  try {
+    const url = `http://localhost:3446/api/v1/dreams`;
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        date: date,
+        dream: dream
+      })
+    });
+    const newDream = await response.json();
+    return await newDream;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+getAllDreams = async () => {
+  try {
+    const url = `http://localhost:3446/api/v1/dreams`;
+    const response = await fetch(url);
+    const data = await response.json();
+    return await data;
+  } catch (error) {
+    console.log(error);
+  }
+};
