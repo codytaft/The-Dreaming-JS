@@ -1,6 +1,6 @@
 saveDreamToDatabase = async (date, dream) => {
   try {
-    const url = process.env.DATABASE_API_URL + `/api/v1/dreams`;
+    const url = `http://localhost:3446/api/v1/dreams`;
     const response = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -18,16 +18,11 @@ saveDreamToDatabase = async (date, dream) => {
 
 getAllDreams = async () => {
   try {
-    const url = process.env.DATABASE_API_URL + `/api/v1/dreams`;
+    const url = `http://localhost:3446/api/v1/dreams`;
     const response = await fetch(url);
     const data = await response.json();
-    return await data;
+    return await Promise.resolve(data);
   } catch (error) {
     console.log(error);
   }
-};
-
-module.exports = {
-  getAllDreams,
-  saveDreamToDatabase
 };
