@@ -1,4 +1,4 @@
-export const dreamCounter = dreams => {
+dreamCounter = dreams => {
   let dreamWordsCount = {};
   for (let dream of dreams) {
     const dreamWords = dream.dream.split(' ');
@@ -24,7 +24,7 @@ export const dreamCounter = dreams => {
   return filteredWords;
 };
 
-export const maxWord = words => {
+maxWord = words => {
   let max = 0;
   let maxWord = '';
   for (let word in words) {
@@ -36,7 +36,7 @@ export const maxWord = words => {
   return { maxWord, max };
 };
 
-export const rangeOfWords = words => {
+rangeOfWords = words => {
   let wordArrayTotal = [];
   let wordArray = [];
   for (let word in words) {
