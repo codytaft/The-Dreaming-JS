@@ -1,5 +1,8 @@
-var responseElt = document.getElementById('responseJSON');
-var infoElt = document.getElementById('infoJSON');
+// var responseElt = document.getElementById('responseJSON');
+// var infoElt = document.getElementById('infoJSON');
+
+//Set Default Date
+
 var statusElt = document.getElementById('status');
 var transcriptElt = document.getElementById('query');
 
@@ -8,6 +11,7 @@ var conversationState = null;
 var voiceRequest = null;
 
 var recorder = new Houndify.AudioRecorder();
+
 recorder.on('start', function() {
   //Initialize VoiceRequest
   voiceRequest = initVoiceRequest(recorder.sampleRate);
@@ -36,8 +40,8 @@ recorder.on('error', function(error) {
 });
 
 function initVoiceRequest(sampleRate) {
-  responseElt.parentNode.hidden = true;
-  infoElt.parentNode.hidden = true;
+  // responseElt.parentNode.hidden = true;
+  // infoElt.parentNode.hidden = true;
 
   var voiceRequest = new Houndify.VoiceRequest({
     //Your Houndify Client ID
@@ -54,11 +58,11 @@ function initVoiceRequest(sampleRate) {
 
     //REQUEST INFO JSON
     //See https://houndify.com/reference/RequestInfo
-    requestInfo: {
-      UserID: 'test_user',
-      Latitude: 37.388309,
-      Longitude: -121.973968
-    },
+    // requestInfo: {
+    //   UserID: 'test_user',
+    //   Latitude: 37.388309,
+    //   Longitude: -121.973968
+    // },
 
     //Pass the current ConversationState stored from previous queries
     //See https://www.houndify.com/docs#conversation-state
@@ -112,18 +116,19 @@ function onResponse(response, info) {
   }
 
   statusElt.innerText = 'Received response.';
-  responseElt.parentNode.hidden = false;
-  responseElt.value = response.stringify(undefined, 2);
-  infoElt.parentNode.hidden = false;
-  infoElt.value = JSON.stringify(info, undefined, 2);
+  console.log(response.AllResults[0].WrittenResponse);
+  // responseElt.parentNode.hidden = false;
+  // responseElt.value = response.stringify(undefined, 2);
+  // infoElt.parentNode.hidden = false;
+  // infoElt.value = JSON.stringify(info, undefined, 2);
 }
 
 //Fires if error occurs during the request
 function onError(err, info) {
   statusElt.innerText = 'Error: ' + JSON.stringify(err);
-  responseElt.parentNode.hidden = true;
-  infoElt.parentNode.hidden = false;
-  infoElt.value = JSON.stringify(info, undefined, 2);
+  // responseElt.parentNode.hidden = true;
+  // infoElt.parentNode.hidden = false;
+  // infoElt.value = JSON.stringify(info, undefined, 2);
 }
 
 //Fires every time backend sends a speech-to-text
