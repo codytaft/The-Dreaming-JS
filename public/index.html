@@ -1,6 +1,6 @@
 <html>
   <head>
-    <script src="js/houndify.js"></script>
+    <script src="scripts/js/houndify.js"></script>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.4/semantic.css"
@@ -35,7 +35,7 @@
           <button
             id="textSearchButton"
             class="ui icon button"
-            onclick="initTextRequest()"
+            onclick="onSaveClick()"
           >
             <i class="save big icon"></i>
           </button>
@@ -48,7 +48,8 @@
       <div class="word-cloud"><label>Word Cloud Goes here</label></div>
       <div class="dream-container"><label>Dreams Go Here</label></div>
     </div>
-    <script src="scripts/dreamInput.js"></script>
+    <script src="scripts/main.js"></script>
+    <!-- <script src="scripts/utilities/apicalls.js"></script> -->
     <script src="scripts/getDate.js"></script>
   </body>
 </html>
