@@ -1,6 +1,15 @@
 <html>
   <head>
     <script src="scripts/js/houndify.js"></script>
+    <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+    <script>
+      zingchart.MODULESDIR = 'https://cdn.zingchart.com/modules/';
+      ZC.LICENSE = [
+        '569d52cefae586f634c54f86dc99e6a9',
+        'ee6b7db5b51705a13dc2339db3edaf6d'
+      ];
+    </script>
+    <script src="scripts/utilities/apicalls.js"></script>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.4/semantic.css"
@@ -45,11 +54,13 @@
         </div>
       </form>
 
-      <div class="word-cloud"><label>Word Cloud Goes here</label></div>
+      <div id="myChart"></div>
+
       <div class="dream-container"><label>Dreams Go Here</label></div>
     </div>
+    <script src="scripts/utilities/dreamCounter.js"></script>
+    <script src="scripts/wordCloud.js"></script>
     <script src="scripts/main.js"></script>
-    <!-- <script src="scripts/utilities/apicalls.js"></script> -->
     <script src="scripts/getDate.js"></script>
   </body>
 </html>
