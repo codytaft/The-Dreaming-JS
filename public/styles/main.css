@@ -62,3 +62,7 @@ h2.ui.header {
 .dream-list-item {
   margin-bottom: 3rem;
 }
+
+#myChart-license-text {
+  display: none;
+}
