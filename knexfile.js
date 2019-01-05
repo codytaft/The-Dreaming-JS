@@ -17,22 +17,6 @@ module.exports = {
     }
   },
 
-  // staging: {
-  //   client: 'postgresql',
-  //   connection: {
-  //     database: 'my_db',
-  //     user: 'username',
-  //     password: 'password'
-  //   },
-  //   pool: {
-  //     min: 2,
-  //     max: 10
-  //   },
-  //   migrations: {
-  //     tableName: 'knex_migrations'
-  //   }
-  //   // },
-
   //mysql production
   // production: {
   //   client: 'mysql',
@@ -48,7 +32,7 @@ module.exports = {
   //   seeds: {
   //     directory: './db/seeds'
   //   },
-  //   useNullAsDefaul: true
+  //   useNullAsDefault: true
   // }
 
   //mariadb production
@@ -67,6 +51,6 @@ module.exports = {
     seeds: {
       directory: './db/seeds'
     },
-    useNullAsDefaul: true
+    useNullAsDefault: true
   }
 };
