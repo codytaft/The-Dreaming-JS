@@ -3,7 +3,6 @@ exports.up = function(knex, Promise) {
     t.increments('id').primary();
     t.text('dream');
     t.date('date');
-    t.timestamps(true, true);
   });
 };
 
