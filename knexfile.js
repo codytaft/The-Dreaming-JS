@@ -33,13 +33,33 @@ module.exports = {
   //   }
   //   // },
 
+  //mysql production
+  // production: {
+  //   client: 'mysql',
+  //   connection: {
+  //     host: 'us-cdbr-iron-east-01.cleardb.net',
+  //     user: 'b9b3aed7dfac50',
+  //     password: '35fd56f9',
+  //     database: 'heroku_9160596e5d35f9d'
+  //   },
+  //   migrations: {
+  //     directory: './db/migrations'
+  //   },
+  //   seeds: {
+  //     directory: './db/seeds'
+  //   },
+  //   useNullAsDefaul: true
+  // }
+
+  //mariadb production
   production: {
     client: 'mysql',
     connection: {
-      host: 'us-cdbr-iron-east-01.cleardb.net',
-      user: 'b9b3aed7dfac50',
-      password: '35fd56f9',
-      database: 'heroku_9160596e5d35f9d'
+      host: 'bfjrxdpxrza9qllq.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+      user: 'n878agjksfo91crq',
+      password: 'rmpnnho953q9pjxm',
+      database: 'gpn0gxfv1hboiccr',
+      port: 3306
     },
     migrations: {
       directory: './db/migrations'
