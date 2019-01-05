@@ -46,6 +46,7 @@ module.exports = {
     },
     seeds: {
       directory: './db/seeds'
-    }
+    },
+    useNullAsDefaul: true
   }
 };

@@ -62,3 +62,6 @@ typings/
 
 # dreams
 /db/dreams
+
+#Desktop Services
+.DS_Store

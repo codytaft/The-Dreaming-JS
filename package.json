@@ -1,13 +1,41 @@
 {
+  "name": "thedreamingjs",
+  "version": "1.0.0",
+  "engines": {
+    "node": "10.x"
+  },
+  "description": "Dream Journal App",
+  "main": "server.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codytaft/The-Dreaming-JS.git"
+  },
+  "keywords": [
+    "dream",
+    "nodejs",
+    "javascript",
+    "express",
+    "wordcloud",
+    "houndify"
+  ],
+  "author": "Cody Taft",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/codytaft/The-Dreaming-JS/issues"
+  },
+  "homepage": "https://github.com/codytaft/The-Dreaming-JS#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
     "dotenv": "^6.2.0",
     "express": "^4.16.3",
-    "houndify": "file:houndify-2.3.0.tgz",
     "knex": "^0.16.3",
     "minimist": "^1.2.0",
     "mysql": "^2.16.0",
     "wav": "^1.0.0"
+  },
+  "scripts": {
+    "start": "nodemon server.js"
   }
 }
