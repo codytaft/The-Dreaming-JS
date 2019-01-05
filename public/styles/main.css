@@ -4,14 +4,12 @@ body {
   background-color: #282c34;
 }
 
-.ui.button {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
+ul {
+  padding: 0;
 }
 
-.ui.form input[id='query'] {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
+li {
+  list-style: none;
 }
 
 h2.ui.header {
@@ -20,22 +18,47 @@ h2.ui.header {
   font-size: 3rem;
 }
 
-/* html,
-body {
-  height: 100%;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-} */
+.ui.button {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+#textSaveButton {
+  border-top-right-radius: 0.285714rem;
+  border-bottom-right-radius: 0.285714rem;
+  margin-bottom: 1rem;
+}
+
+.ui.form input[id='query'] {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 0.285714rem;
+  border-bottom-right-radius: 0.285714rem;
+}
+
+.ui.action.input:not([class*='left action']) > input {
+  border-top-right-radius: 0.285714rem !important;
+  border-bottom-right-radius: 0.285714rem !important;
+}
+
+#saveDirectionsText {
+  color: crimson;
+}
+
 #myChart {
   width: 100%;
   min-height: 150px;
 }
 
-/* .zc-ref {
-  display: none;
-} */
-
 #myChart-graph-id0-path {
   fill: none;
+}
+
+.dream-list {
+  color: whitesmoke;
+  text-align: left;
+}
+
+.dream-list-item {
+  margin-bottom: 3rem;
 }
