@@ -1,6 +1,7 @@
 <html>
   <head>
     <script src="scripts/js/houndify.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
     <script>
       zingchart.MODULESDIR = 'https://cdn.zingchart.com/modules/';
@@ -41,26 +42,41 @@
             type="text"
             placeholder="Click on microphone or type dream"
           />
-          <button
-            id="textSearchButton"
-            class="ui icon button"
-            onclick="onSaveClick()"
-          >
-            <i class="save big icon"></i>
-          </button>
         </div>
-        <div id="status" class="ui info message">
+        <div id="status" class="ui info message" contenteditable="false">
           Click on microphone icon or type in the text query.
+        </div>
+        <p id="saveDirectionsText" hidden></p>
+        <button
+          id="textSaveButton"
+          class="ui icon button"
+          onclick="onSaveClick()"
+        >
+          <i class="save big icon"></i>
+        </button>
+        <div class="ui search">
+          <div class="ui icon input">
+            <input
+              id="search"
+              class="prompt"
+              type="text"
+              placeholder="Search dreams..."
+            />
+            <i class="search icon"></i>
+          </div>
+          <div class="results"></div>
         </div>
       </form>
 
       <div id="myChart"></div>
 
-      <div class="dream-container"><label>Dreams Go Here</label></div>
+      <div class="dream-container"><ul class="dream-list"></ul></div>
     </div>
     <script src="scripts/utilities/dreamCounter.js"></script>
     <script src="scripts/wordCloud.js"></script>
     <script src="scripts/main.js"></script>
     <script src="scripts/getDate.js"></script>
+    <script src="scripts/displayDreams.js"></script>
+    <script src="scripts/search.js"></script>
   </body>
 </html>

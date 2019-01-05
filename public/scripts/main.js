@@ -1,13 +1,20 @@
 var statusElt = document.getElementById('status');
 var transcriptElt = document.getElementById('query');
+var searchElt = document.getElementById('search');
+var saveDirections = document.getElementById('saveDirectionsText');
 var clientID = 'RiMx52JTjy6L9At1dnmk3A==';
 var conversationState = null;
 var voiceRequest = null;
-
-var recorder = new Houndify.AudioRecorder();
-
 var textResult;
 
+$(document).ready(function() {
+  statusElt.value = '';
+  transcriptElt.value = '';
+  // searchElt.value = '';
+});
+
+// Houndify Audio Recorder
+var recorder = new Houndify.AudioRecorder();
 recorder.on('start', function() {
   //Initialize VoiceRequest
   voiceRequest = initVoiceRequest(recorder.sampleRate);
@@ -23,7 +30,7 @@ recorder.on('end', function() {
   voiceRequest.end();
   statusElt.innerText = 'Stopped recording. Waiting for response...';
   document.getElementById('voiceIcon').className = 'unmute big icon';
-  document.getElementById('textSearchButton').disabled = false;
+  document.getElementById('textSaveButton').disabled = false;
   document.getElementById('query').readOnly = false;
 });
 
@@ -31,10 +38,11 @@ recorder.on('error', function(error) {
   voiceRequest.abort();
   statusElt.innerText = 'Error: ' + error;
   document.getElementById('voiceIcon').className = 'unmute big icon';
-  document.getElementById('textSearchButton').disabled = false;
+  document.getElementById('textSaveButton').disabled = false;
   document.getElementById('query').readOnly = false;
 });
 
+//Initialiaze voice request
 function initVoiceRequest(sampleRate) {
   // responseElt.parentNode.hidden = true;
   // infoElt.parentNode.hidden = true;
@@ -82,7 +90,6 @@ function initVoiceRequest(sampleRate) {
       onError(err, info);
     }
   });
-
   return voiceRequest;
 }
 
@@ -93,11 +100,10 @@ function onMicrophoneClick() {
   }
 
   recorder.start();
-
   statusElt.innerText = 'Streaming voice request...';
   document.getElementById('voiceIcon').className =
     'loading circle notched icon big';
-  document.getElementById('textSearchButton').disabled = true;
+  document.getElementById('textSaveButton').disabled = true;
   document.getElementById('query').readOnly = true;
 }
 
@@ -113,7 +119,11 @@ function onResponse(response, info) {
 
   textResult = response.AllResults[0].WrittenResponse;
   statusElt.innerText = textResult;
-  console.log(response.AllResults[0].WrittenResponse);
+  statusElt.contentEditable = true;
+  saveDirections.hidden = false;
+  saveDirections.innerText =
+    'Edit dream text above and click save when finished';
+
   // responseElt.parentNode.hidden = false;
   // responseElt.value = response.stringify(undefined, 2);
   // infoElt.parentNode.hidden = false;
@@ -136,8 +146,15 @@ function onTranscriptionUpdate(transcript) {
   transcriptElt.value = transcript.PartialTranscript;
 }
 
+//Save dream to database on click
 function onSaveClick() {
   let date = document.getElementById('date-input').value;
-  let dream = document.getElementById('query').value;
+  let dream = statusElt.innerText;
   saveDreamToDatabase(date, dream);
+  console.log(dream);
+  $('.dream-list').prepend(`
+  <li class="dream-list-item">
+  <h4>${date.slice(0, 10)}</h4>
+  <p>${dream}</p>
+  `);
 }
