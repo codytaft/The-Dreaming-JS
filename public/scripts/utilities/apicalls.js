@@ -1,5 +1,3 @@
-console.log(window.location.href);
-
 saveDreamToDatabase = async (date, dream) => {
   try {
     const url = window.location.href + `api/v1/dreams`;
