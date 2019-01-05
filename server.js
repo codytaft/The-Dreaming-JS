@@ -21,11 +21,12 @@ const config = require(path.join(__dirname, configFile));
 
 //express app
 const app = express();
-const port = process.env.PORT || 3446;
+// const port = process.env.PORT || 3446;
 const publicFolder = argv.public || 'public';
 app.use(express.static(path.join(__dirname, publicFolder)));
 app.use(bodyParser.json());
 app.use(cors());
+app.set('port', process.env.PORT || 3446);
 
 //authenticates requests
 app.get(
@@ -86,7 +87,7 @@ if (config.https) {
 
   //https server
   var httpsServer = https.createServer(credentials, app);
-  httpsServer.listen(port, function() {
+  httpsServer.listen(app.get('port'), () => {
     console.log('HTTPS server running on port', port);
     console.log(
       'Open https://localhost:' + port,
@@ -94,11 +95,7 @@ if (config.https) {
     );
   });
 } else {
-  app.listen(port, function() {
-    console.log('HTTP server running on port', port);
-    console.log(
-      'Open http://localhost:' + port,
-      'in the browser to view the Web SDK demo'
-    );
+  app.listen(app.get('port'), () => {
+    console.log(`Who Are You running on port ${app.get('port')}`);
   });
 }
