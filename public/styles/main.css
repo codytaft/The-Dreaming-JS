@@ -63,6 +63,8 @@ h2.ui.header {
   margin-bottom: 3rem;
 }
 
-#myChart-license-text {
+/*Remove License
+
+/* #myChart-license-text {
   display: none;
-}
+} */
