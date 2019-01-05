@@ -21,7 +21,6 @@ const config = require(path.join(__dirname, configFile));
 
 //express app
 const app = express();
-// const port = process.env.PORT || 3446;
 const publicFolder = argv.public || 'public';
 app.use(express.static(path.join(__dirname, publicFolder)));
 app.use(bodyParser.json());
