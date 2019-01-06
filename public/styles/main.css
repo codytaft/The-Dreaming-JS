@@ -12,10 +12,16 @@ li {
   list-style: none;
 }
 
-h2.ui.header {
+.app-header {
   font-family: 'Dosis', sans-serif;
   color: whitesmoke;
   font-size: 3rem;
+  text-align: center;
+}
+
+.g-signin2 {
+  width: 8rem;
+  margin: 0 auto;
 }
 
 #textSaveButton {
