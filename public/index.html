@@ -33,18 +33,13 @@
       <h2 class="ui basic header">The Dreaming</h2>
       <form action=""><input id="date-input" type="date" name="date" /></form>
       <form id="form" class="ui form" action="javascript:void(0);">
-        <div class="ui action big labeled fluid input field">
-          <div class="ui icon button " onclick="onMicrophoneClick()">
-            <i id="voiceIcon" class="unmute big icon"></i>
-          </div>
-          <input
-            id="query"
-            type="text"
-            placeholder="Click on microphone or type dream"
-          />
+        <div class="ui action big labeled fluid input field"></div>
+        <div id="status" class="ui info message" contenteditable>
+          Click mic or type dream.
         </div>
-        <div id="status" class="ui info message" contenteditable="false">
-          Click on microphone icon or type in the text query.
+        <p id="recordingUpdate" hidden></p>
+        <div class="ui icon button " onclick="onMicrophoneClick()">
+          <i id="voiceIcon" class="unmute big icon"></i>
         </div>
         <p id="saveDirectionsText" hidden></p>
         <button
