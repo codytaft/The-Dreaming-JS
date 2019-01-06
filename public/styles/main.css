@@ -59,11 +59,27 @@ h2.ui.header {
 }
 
 #status.ui.info.message {
-  width: 15rem;
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.ui.icon.input {
+  width: 50%;
   margin-left: auto;
   margin-right: auto;
 }
 
+@media only screen and (max-width: 991px) and (min-width: 768px) {
+  .ui.container {
+    width: 800px;
+  }
+  #status.ui.info.message {
+    width: 100%;
+  }
+  .ui.icon.input {
+    width: 75%;
+  }
+}
 /*Remove License
 
 /* #myChart-license-text {
