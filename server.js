@@ -87,14 +87,10 @@ if (config.https) {
   //https server
   var httpsServer = https.createServer(credentials, app);
   httpsServer.listen(app.get('port'), () => {
-    console.log('HTTPS server running on port', port);
-    console.log(
-      'Open https://localhost:' + port,
-      'in the browser to view the Web SDK demo'
-    );
+    console.log('The Dreaming running on port', port);
   });
 } else {
   app.listen(app.get('port'), () => {
-    console.log(`Who Are You running on port ${app.get('port')}`);
+    console.log(`The Dreaming running on port ${app.get('port')}`);
   });
 }
