@@ -1,25 +1,25 @@
-var statusElt = document.getElementById('status');
-var transcriptElt = document.getElementById('query');
-var searchElt = document.getElementById('search');
-var saveDirections = document.getElementById('saveDirectionsText');
-var clientID = 'RiMx52JTjy6L9At1dnmk3A==';
-var conversationState = null;
-var voiceRequest = null;
-var textResult;
+let statusElt = document.getElementById('status');
+let recordingUpdate = document.getElementById('recordingUpdate');
+let searchElt = document.getElementById('search');
+let voiceIcon = document.getElementById('voiceIcon');
+let textSaveButton = document.getElementById('textSaveButton');
+let dateInput = document.getElementById('date-input');
+let clientID = 'RiMx52JTjy6L9At1dnmk3A==';
+let conversationState = null;
+let voiceRequest = null;
+let textResult;
 
 $(document).ready(function() {
   statusElt.value = '';
-  transcriptElt.value = '';
-  // searchElt.value = '';
+  searchElt.value = '';
 });
 
 // Houndify Audio Recorder
-var recorder = new Houndify.AudioRecorder();
+let recorder = new Houndify.AudioRecorder();
 recorder.on('start', function() {
   //Initialize VoiceRequest
   voiceRequest = initVoiceRequest(recorder.sampleRate);
-  document.getElementById('voiceIcon').className =
-    'selected radio icon big red';
+  voiceIcon.className = 'selected radio icon big red';
 });
 
 recorder.on('data', function(data) {
@@ -28,25 +28,22 @@ recorder.on('data', function(data) {
 
 recorder.on('end', function() {
   voiceRequest.end();
-  statusElt.innerText = 'Stopped recording. Waiting for response...';
-  document.getElementById('voiceIcon').className = 'unmute big icon';
-  document.getElementById('textSaveButton').disabled = false;
-  document.getElementById('query').readOnly = false;
+  recordingUpdate.hidden = false;
+  recordingUpdate.innerText = 'Stopped recording. Waiting for response...';
+  voiceIcon.className = 'unmute big icon';
+  textSaveButton.disabled = false;
 });
 
 recorder.on('error', function(error) {
   voiceRequest.abort();
-  statusElt.innerText = 'Error: ' + error;
-  document.getElementById('voiceIcon').className = 'unmute big icon';
-  document.getElementById('textSaveButton').disabled = false;
-  document.getElementById('query').readOnly = false;
+  recordingUpdate.hidden = false;
+  recordingUpdate.innerText = 'Error: ' + error;
+  voiceIcon.className = 'unmute big icon';
+  textSaveButton.disabled = false;
 });
 
 //Initialiaze voice request
 function initVoiceRequest(sampleRate) {
-  // responseElt.parentNode.hidden = true;
-  // infoElt.parentNode.hidden = true;
-
   let voiceRequest = new Houndify.VoiceRequest({
     //Your Houndify Client ID
     clientId: clientID,
@@ -100,11 +97,10 @@ function onMicrophoneClick() {
   }
 
   recorder.start();
-  statusElt.innerText = 'Streaming voice request...';
-  document.getElementById('voiceIcon').className =
-    'loading circle notched icon big';
-  document.getElementById('textSaveButton').disabled = true;
-  document.getElementById('query').readOnly = true;
+  recordingUpdate.hidden = false;
+  recordingUpdate.innerText = 'Streaming voice request...';
+  voiceIcon.className = 'loading circle notched icon big';
+  textSaveButton.disabled = true;
 }
 
 //Fires after server responds with Response JSON
@@ -120,22 +116,11 @@ function onResponse(response, info) {
   textResult = response.AllResults[0].WrittenResponse;
   statusElt.innerText = textResult;
   statusElt.contentEditable = true;
-  saveDirections.hidden = false;
-  saveDirections.innerText =
-    'Edit dream text above and click save when finished';
-
-  // responseElt.parentNode.hidden = false;
-  // responseElt.value = response.stringify(undefined, 2);
-  // infoElt.parentNode.hidden = false;
-  // infoElt.value = JSON.stringify(info, undefined, 2);
 }
 
 //Fires if error occurs during the request
 function onError(err, info) {
   statusElt.innerText = 'Error: ' + JSON.stringify(err);
-  // responseElt.parentNode.hidden = true;
-  // infoElt.parentNode.hidden = false;
-  // infoElt.value = JSON.stringify(info, undefined, 2);
 }
 
 //Fires every time backend sends a speech-to-text
@@ -143,18 +128,20 @@ function onError(err, info) {
 //See https://houndify.com/reference/HoundPartialTranscript
 
 function onTranscriptionUpdate(transcript) {
-  transcriptElt.value = transcript.PartialTranscript;
+  statusElt.innerText = transcript.PartialTranscript;
 }
 
 //Save dream to database on click
 function onSaveClick() {
-  let date = document.getElementById('date-input').value;
+  let date = dateInput.value;
   let dream = statusElt.innerText;
   saveDreamToDatabase(date, dream);
-  console.log(dream);
+
   $('.dream-list').prepend(`
   <li class="dream-list-item">
   <h4>${date.slice(0, 10)}</h4>
   <p>${dream}</p>
   `);
+
+  statusElt.innerText = 'Click on microphone icon or type dream here.';
 }
