@@ -18,11 +18,6 @@ h2.ui.header {
   font-size: 3rem;
 }
 
-.ui.button {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-}
-
 #textSaveButton {
   border-top-right-radius: 0.285714rem;
   border-bottom-right-radius: 0.285714rem;
@@ -41,7 +36,7 @@ h2.ui.header {
   border-bottom-right-radius: 0.285714rem !important;
 }
 
-#saveDirectionsText {
+#recordingUpdate {
   color: crimson;
 }
 
@@ -61,6 +56,12 @@ h2.ui.header {
 
 .dream-list-item {
   margin-bottom: 3rem;
+}
+
+#status.ui.info.message {
+  width: 15rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /*Remove License
