@@ -1,4 +1,6 @@
+let currentUser;
 saveDreamToDatabase = async (date, dream) => {
+  console.log(currentUser);
   try {
     const url = window.location.href + `api/v1/dreams`;
     const response = await fetch(url, {
@@ -7,7 +9,7 @@ saveDreamToDatabase = async (date, dream) => {
       body: JSON.stringify({
         date: date,
         dream: dream,
-        user_id: currentUser.user_token
+        user_id: currentUser
       })
     });
     const newDream = await response.json();
@@ -17,13 +19,11 @@ saveDreamToDatabase = async (date, dream) => {
   }
 };
 
-getUserDreams = async user => {
+getUserDreams = async userId => {
   try {
-    const url =
-      window.location.href + `api/v1/users/${user.user_token}/user_token`;
+    const url = window.location.href + `api/v1/users/${userId}/user_id`;
     const response = await fetch(url);
     const data = await response.json();
-    currentUser = user;
     makeWordCloud(data);
     displayDreams(data);
   } catch (error) {
@@ -53,9 +53,10 @@ authorizeUser = async token => {
         token: token
       })
     });
-    const newUser = await response.json();
-    getUserDreams(newUser);
-    return await newUser;
+    const userId = await response.json();
+    getUserDreams(userId[0].id);
+    currentUser = userId[0].id;
+    return await userId[0].id;
   } catch (error) {
     console.log(error);
   }

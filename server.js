@@ -50,10 +50,10 @@ app.post(
 
 //dreams requests
 
-// Request all dreams
-app.get('/api/v1/users/:user_token/user_token', (req, res) => {
+// Request user dreams
+app.get('/api/v1/users/:user_id/user_id', (req, res) => {
   database('users')
-    .where('user_token', req.params.user_token)
+    .where('id', req.params.user_id)
     .select('id')
     .then(userId => {
       database('dreams')
@@ -79,7 +79,7 @@ app.post('/api/v1/dreams', (req, res) => {
   //   }
   // }
   database('users')
-    .where({ user_token: newDream.user_id })
+    .where({ id: newDream.user_id })
     .select('id')
     .then(userId => {
       database('dreams')
@@ -88,7 +88,6 @@ app.post('/api/v1/dreams', (req, res) => {
           'id'
         )
         .then(dreamId => {
-          console.log(dreamId);
           res.status(201).json({ dreamId });
         })
         .catch(error => {
@@ -114,7 +113,7 @@ app.post('/api/v1/users/authorize', async (req, res) => {
     .then(response => {
       if (response.length <= 0) {
         return database('users')
-          .insert(newUser, 'id')
+          .insert(newUser)
           .then(userId => {
             res.status(201).json(userId);
           })
@@ -122,7 +121,12 @@ app.post('/api/v1/users/authorize', async (req, res) => {
             res.status(500).json({ error });
           });
       }
-      return res.status(409).json(newUser);
+      return database('users')
+        .select('id')
+        .where('user_token', newUser.user_token)
+        .then(userId => {
+          res.status(201).json(userId);
+        });
     });
 });
 
