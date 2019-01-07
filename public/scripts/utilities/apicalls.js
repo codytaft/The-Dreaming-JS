@@ -1,4 +1,10 @@
 let currentUser;
+$(document).ready(function() {
+  if (currentUser) {
+    getUserDreams(currentUser);
+  }
+});
+
 saveDreamToDatabase = async (date, dream) => {
   try {
     const url = window.location.href + `api/v1/dreams`;
@@ -81,6 +87,7 @@ makeWordCloud = dreams => {
 
 displayDreams = dreams => {
   $(document).ready(function() {
+    $('.dream-list').empty();
     dreams.forEach(dream => {
       $('.dream-list').prepend(`
           <li id=${dream.id} class="dream-list-item">
