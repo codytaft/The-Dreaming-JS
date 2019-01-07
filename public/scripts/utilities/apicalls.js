@@ -1,12 +1,4 @@
-let currentUser;
-$(document).ready(function() {
-  if (currentUser) {
-    getUserDreams(currentUser);
-  }
-});
-
 saveDreamToDatabase = async (date, dream) => {
-  console.log(currentUser);
   try {
     const url = window.location.href + `api/v1/dreams`;
     const response = await fetch(url, {
@@ -45,24 +37,25 @@ googleAuthenticate = async id_token => {
   xhr.open('POST', authUrl);
   xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   xhr.send('idtoken=' + id_token);
-  xhr.onload = await function() {
-    addUser(xhr.responseText, id_token);
+  xhr.onload = await async function() {
+    let authorized = await authorizeUser(id_token);
+    return authorized;
   };
 };
 
-addUser = async (responseText, token) => {
+authorizeUser = async token => {
   try {
-    const url = window.location.href + `api/v1/users`;
+    const url = window.location.href + `api/v1/users/authorize`;
     const response = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        userResponse: responseText,
         token: token
       })
     });
     const newUser = await response.json();
     getUserDreams(newUser);
+    return await newUser;
   } catch (error) {
     console.log(error);
   }

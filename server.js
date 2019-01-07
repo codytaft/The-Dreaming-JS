@@ -78,7 +78,6 @@ app.post('/api/v1/dreams', (req, res) => {
   //       .send({ error: `You are missing a ${requiredParameter} property.` });
   //   }
   // }
-  console.log(newDream.user_id);
   database('users')
     .where({ user_token: newDream.user_id })
     .select('id')
@@ -99,9 +98,9 @@ app.post('/api/v1/dreams', (req, res) => {
 });
 
 //Authorize User
-app.post('/api/v1/users', async (req, res) => {
+app.post('/api/v1/users/authorize', async (req, res) => {
   let user = req.body;
-  const newUser = await verify(user.userResponse, user.token);
+  const newUser = await verify(user.token);
 
   for (let requiredParameter of ['user_name', 'user_token']) {
     if (!newUser[requiredParameter]) {
@@ -128,7 +127,7 @@ app.post('/api/v1/users', async (req, res) => {
 });
 
 //Verification and get userid
-async function verify(userResponse, token) {
+async function verify(token) {
   const ticket = await client.verifyIdToken({
     idToken: token,
     audience: clientID
