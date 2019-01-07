@@ -57,6 +57,10 @@ p:last-child {
   width: 100%;
 }
 
+#date-input {
+  width: 15rem;
+}
+
 #textSaveButton {
   border-top-right-radius: 0.285714rem;
   border-bottom-right-radius: 0.285714rem;
