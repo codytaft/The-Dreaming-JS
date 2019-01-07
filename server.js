@@ -86,9 +86,8 @@ app.post('/api/v1/dreams', (req, res) => {
 app.post('/api/v1/users', async (req, res) => {
   let user = req.body;
   const newUser = await verify(user.userResponse, user.token);
+
   //***Save user id to database with user!!!!*/
-  // let newUser = { name: user.userResponse.name, user_token: userid };
-  console.log(newUser);
   database('users')
     .insert(newUser, 'id')
     .then(userId => {
