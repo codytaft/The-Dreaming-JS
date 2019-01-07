@@ -24,6 +24,38 @@ li {
   margin: 0 auto;
 }
 
+#signout-button {
+  color: white;
+  width: 118px;
+  margin: 0 auto;
+  padding: 0;
+  background-color: #4285f4;
+  display: flex;
+  flex-direction: row;
+  border: none;
+  height: 2.5rem;
+  justify-content: space-between;
+}
+
+.google-logo {
+  width: 2.5rem;
+  border: none;
+  padding: 0.1rem;
+  margin: 0;
+}
+
+#signout-button:hover {
+  box-shadow: 0 0 4px #4285f4;
+}
+
+p:last-child {
+  margin: auto;
+}
+
+.signout-text {
+  width: 100%;
+}
+
 #textSaveButton {
   border-top-right-radius: 0.285714rem;
   border-bottom-right-radius: 0.285714rem;
