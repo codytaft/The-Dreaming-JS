@@ -108,7 +108,7 @@ async function verify(userResponse, token) {
   const payload = ticket.getPayload();
   const userid = payload['sub'];
   const userName = payload['name'];
-  return { user_token: userid, name: userName };
+  return { user_token: userid, user_name: userName };
 }
 
 //start http or https server
