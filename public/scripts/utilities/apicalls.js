@@ -6,6 +6,7 @@ $(document).ready(function() {
 });
 
 saveDreamToDatabase = async (date, dream) => {
+  console.log(curretUser);
   try {
     const url = window.location.href + `api/v1/dreams`;
     const response = await fetch(url, {
