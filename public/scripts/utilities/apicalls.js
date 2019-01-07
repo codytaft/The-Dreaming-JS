@@ -1,3 +1,4 @@
+let currentUser;
 saveDreamToDatabase = async (date, dream) => {
   try {
     const url = window.location.href + `api/v1/dreams`;
@@ -6,7 +7,8 @@ saveDreamToDatabase = async (date, dream) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         date: date,
-        dream: dream
+        dream: dream,
+        user_id: currentUser.user_token
       })
     });
     const newDream = await response.json();
@@ -16,12 +18,15 @@ saveDreamToDatabase = async (date, dream) => {
   }
 };
 
-getAllDreams = async () => {
+getUserDreams = async user => {
   try {
-    const url = window.location.href + `api/v1/dreams`;
+    const url =
+      window.location.href + `api/v1/users/${user.user_token}/user_token`;
     const response = await fetch(url);
     const data = await response.json();
-    return await Promise.resolve(data);
+    currentUser = user;
+    makeWordCloud(data);
+    displayDreams(data);
   } catch (error) {
     console.log(error);
   }
@@ -50,7 +55,38 @@ addUser = async (responseText, token) => {
       })
     });
     const newUser = await response.json();
+    getUserDreams(newUser);
   } catch (error) {
     console.log(error);
   }
+};
+
+makeWordCloud = dreams => {
+  const filteredWords = dreamCounter(dreams);
+  let cloudData = {
+    type: 'wordcloud',
+    options: {
+      words: filteredWords
+    }
+  };
+  $(document).ready(function() {
+    zingchart.render({
+      id: 'myChart',
+      data: cloudData,
+      height: 200,
+      width: '100%'
+    });
+  });
+};
+
+displayDreams = dreams => {
+  $(document).ready(function() {
+    dreams.forEach(dream => {
+      $('.dream-list').prepend(`
+          <li id=${dream.id} class="dream-list-item">
+            <h4>${dream.date.slice(0, 10)}</h4>
+            <p>${dream.dream}</p>
+            `);
+    });
+  });
 };
