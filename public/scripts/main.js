@@ -11,25 +11,6 @@ let conversationState = null;
 let voiceRequest = null;
 let textResult;
 
-//Auth0
-// var lock = new Auth0Lock(auth0ClientID, auth0Domain);
-
-// document.getElementById('btn-login').addEventListener('click', function() {
-//   lock.show(function(err, profile, token) {
-//     if (err) {
-//       //Error callback
-//       console.error('Something went wrong: ', err);
-//     } else {
-//       //Success callback
-
-//       //Save the JWT token.
-//       localStorage.setItem('userToken', token);
-//       //Save the profile
-//       localStorage.setItem('userProfile', JSON.stringify(profile));
-//     }
-//   });
-// });
-
 $(document).ready(function() {
   statusElt.value = '';
   searchElt.value = '';
