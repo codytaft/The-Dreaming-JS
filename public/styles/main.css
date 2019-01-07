@@ -12,11 +12,12 @@ li {
   list-style: none;
 }
 
-.app-header {
+h2.app-header {
   font-family: 'Dosis', sans-serif;
   color: whitesmoke;
   font-size: 3rem;
   text-align: center;
+  margin-top: 3rem;
 }
 
 .g-signin2 {
