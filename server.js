@@ -57,7 +57,7 @@ app.get('/api/v1/users/:user_token/user_token', (req, res) => {
     .select('id')
     .then(userId => {
       database('dreams')
-        .where('user_id', userId)
+        .where('user_id', userId[0].id)
         .select()
         .then(dreams => {
           res.status(200).json(dreams);
