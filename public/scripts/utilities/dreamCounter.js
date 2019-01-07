@@ -43,7 +43,7 @@ rangeOfWords = words => {
     if (words[word]) {
       wordArrayTotal.push({ [word]: words[word] });
     }
-    if (words[word] < 25 && words[word] > 3) {
+    if (words[word] < 25 && words[word] >= 1) {
       wordArray.push({ text: [word], count: words[word] });
     }
   }
