@@ -4,7 +4,7 @@
 
   "port": 3446,
 
-  "https": true,
+  "https": false,
   "sslKeyFile": "ssl files/server.key",
   "sslCrtFile": "ssl files/server.crt"
 }
