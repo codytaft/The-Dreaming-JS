@@ -17,24 +17,6 @@ module.exports = {
     }
   },
 
-  //mysql production
-  // production: {
-  //   client: 'mysql',
-  //   connection: {
-  //     host: 'us-cdbr-iron-east-01.cleardb.net',
-  //     user: 'b9b3aed7dfac50',
-  //     password: '35fd56f9',
-  //     database: 'heroku_9160596e5d35f9d'
-  //   },
-  //   migrations: {
-  //     directory: './db/migrations'
-  //   },
-  //   seeds: {
-  //     directory: './db/seeds'
-  //   },
-  //   useNullAsDefault: true
-  // }
-
   //mariadb production
   production: {
     client: 'mysql',
