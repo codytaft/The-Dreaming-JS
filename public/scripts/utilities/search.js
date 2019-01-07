@@ -1,10 +1,10 @@
-let searchValue = $('.prompt').change(() => {
-  console.log($('.prompt').val());
-});
+// let searchValue = $('.prompt').change(() => {
+//   console.log($('.prompt').val());
+// });
 
-var dreamsNew;
+// var dreamsNew;
 
-let dreamsPromise1 = Promise.resolve(getAllDreams());
-dreamsPromise1.then(dreams => {
-  dreamsNew = dreams;
-});
+// let dreamsPromise1 = Promise.resolve(getAllDreams());
+// dreamsPromise1.then(dreams => {
+//   dreamsNew = dreams;
+// });
