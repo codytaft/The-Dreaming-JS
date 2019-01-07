@@ -12,10 +12,53 @@ li {
   list-style: none;
 }
 
-h2.ui.header {
+h2.app-header {
   font-family: 'Dosis', sans-serif;
   color: whitesmoke;
   font-size: 3rem;
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.g-signin2 {
+  width: 8rem;
+  margin: 0 auto;
+}
+
+#signout-button {
+  color: white;
+  width: 118px;
+  margin: 0 auto;
+  padding: 0;
+  background-color: #4285f4;
+  display: flex;
+  flex-direction: row;
+  border: none;
+  height: 2.5rem;
+  justify-content: space-between;
+}
+
+.google-logo {
+  width: 2.5rem;
+  border: none;
+  padding: 0.1rem;
+  margin: 0;
+}
+
+#signout-button:hover {
+  box-shadow: 0 0 4px #4285f4;
+}
+
+p:last-child {
+  margin: auto;
+}
+
+.signout-text {
+  width: 100%;
+}
+
+#date-input {
+  width: 15rem;
 }
 
 #textSaveButton {
@@ -80,8 +123,9 @@ h2.ui.header {
     width: 75%;
   }
 }
-/*Remove License
 
-/* #myChart-license-text {
-  display: none;
+/* @media only screen and (min-width: 320px) and (max-width: 400px) {
+  .app-header {
+    font-size: 3rem;
+  }
 } */

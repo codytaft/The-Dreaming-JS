@@ -4,10 +4,31 @@ let searchElt = document.getElementById('search');
 let voiceIcon = document.getElementById('voiceIcon');
 let textSaveButton = document.getElementById('textSaveButton');
 let dateInput = document.getElementById('date-input');
-let clientID = 'RiMx52JTjy6L9At1dnmk3A==';
+let houndifyClientID = 'RiMx52JTjy6L9At1dnmk3A==';
+let auth0ClientID = 'e9Ryt-yZb0WA4vcq-YKyWqxk0wb7FaeP';
+let auth0Domain = 'dreaming.auth0.com';
 let conversationState = null;
 let voiceRequest = null;
 let textResult;
+
+//Auth0
+// var lock = new Auth0Lock(auth0ClientID, auth0Domain);
+
+// document.getElementById('btn-login').addEventListener('click', function() {
+//   lock.show(function(err, profile, token) {
+//     if (err) {
+//       //Error callback
+//       console.error('Something went wrong: ', err);
+//     } else {
+//       //Success callback
+
+//       //Save the JWT token.
+//       localStorage.setItem('userToken', token);
+//       //Save the profile
+//       localStorage.setItem('userProfile', JSON.stringify(profile));
+//     }
+//   });
+// });
 
 $(document).ready(function() {
   statusElt.value = '';
@@ -46,7 +67,7 @@ recorder.on('error', function(error) {
 function initVoiceRequest(sampleRate) {
   let voiceRequest = new Houndify.VoiceRequest({
     //Your Houndify Client ID
-    clientId: clientID,
+    clientId: houndifyClientID,
 
     //For testing environment you might want to authenticate on frontend without Node.js server.
     //In that case you may pass in your Houndify Client Key instead of "authURL".

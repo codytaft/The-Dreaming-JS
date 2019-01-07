@@ -1,7 +1,13 @@
 <html>
   <head>
+    <script src="scripts/utilities/apicalls.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Houndify script -->
     <script src="scripts/js/houndify.js"></script>
+    <!-- JQuery script -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- WordCloud script -->
     <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
     <script>
       zingchart.MODULESDIR = 'https://cdn.zingchart.com/modules/';
@@ -10,29 +16,89 @@
         'ee6b7db5b51705a13dc2339db3edaf6d'
       ];
     </script>
-    <script src="scripts/utilities/apicalls.js"></script>
+    <!-- Semantic UI Stylesheet -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.4/semantic.css"
     />
+    <!-- Custom Stylesheet -->
     <link rel="stylesheet" href="/styles/main.css" />
+    <!-- FontAwesome Stylesheet -->
     <link
       rel="stylesheet"
       href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
       integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
       crossorigin="anonymous"
     />
+    <!-- Google Font Stylesheet -->
     <link
-      href="https://fonts.googleapis.com/css?family=Dosis:200,400"
       rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Dosis:200,400"
     />
+    <!-- Google Login -->
+    <meta name="google-signin-scope" content="profile email" />
+    <meta
+      name="google-signin-client_id"
+      content="638905728157-tmee6fhognfqcclvlk6vdceqgh48lg6t.apps.googleusercontent.com"
+    />
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
   </head>
-
   <body>
-    <div class="ui center aligned basic segment container">
-      <h2 class="ui basic header">The Dreaming</h2>
-      <form action=""><input id="date-input" type="date" name="date" /></form>
+    <h2 class="app-header">The Dreaming</h2>
+    <div
+      id="btn-login"
+      class="g-signin2"
+      data-onsuccess="onSignIn"
+      data-theme="dark"
+      style="display: block"
+    ></div>
+    <button id="signout-button" style="display: none;" onclick="signOut()">
+      <img
+        class="google-logo"
+        src="assets/btn_google_light_normal_ios.svg"
+        alt="google-logo"
+      />
+      <p class="signout-text">Sign Out</p>
+    </button>
+    <!-- Possible google Sign In -->
+    <script>
+      function onSignIn(googleUser) {
+        // Useful data for your client-side scripts:
+        var profile = googleUser.getBasicProfile();
+        // console.log('ID: ' + profile.getId()); // Don't send this directly to your server!
+        // console.log('Full Name: ' + profile.getName());
+        // console.log('Given Name: ' + profile.getGivenName());
+        // console.log('Family Name: ' + profile.getFamilyName());
+        // console.log('Image URL: ' + profile.getImageUrl());
+        // console.log('Email: ' + profile.getEmail());
+
+        // The ID token you need to pass to your backend:
+        var id_token = googleUser.getAuthResponse().id_token;
+        // console.log('ID Token: ' + id_token);
+
+        if (profile) {
+          $('#app-display').toggle();
+          $('#signout-button').toggle();
+          $('.g-signin2').toggle();
+        }
+      }
+      function signOut() {
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.disconnect().then(function() {
+          console.log('User signed out.');
+        });
+        $('#signout-button').toggle();
+        $('.g-signin2').toggle();
+        $('#app-display').toggle();
+      }
+    </script>
+    <div
+      id="app-display"
+      class="ui center aligned basic segment container"
+      style="display: none"
+    >
       <form id="form" class="ui form" action="javascript:void(0);">
+        <input id="date-input" type="date" name="date" />
         <div class="ui action big labeled fluid input field"></div>
         <div id="status" class="ui info message" contenteditable>
           Click mic or type dream.
@@ -68,10 +134,10 @@
       <div class="dream-container"><ul class="dream-list"></ul></div>
     </div>
     <script src="scripts/utilities/dreamCounter.js"></script>
-    <script src="scripts/wordCloud.js"></script>
+    <script src="scripts/utilities/wordCloud.js"></script>
     <script src="scripts/main.js"></script>
-    <script src="scripts/getDate.js"></script>
-    <script src="scripts/displayDreams.js"></script>
-    <script src="scripts/search.js"></script>
+    <script src="scripts/utilities/getDate.js"></script>
+    <script src="scripts/utilities//displayDreams.js"></script>
+    <script src="scripts/utilities/search.js"></script>
   </body>
 </html>
