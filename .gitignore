@@ -63,11 +63,3 @@ typings/
 #Desktop Services
 .DS_Store
 
-#SSL
-*.key
-*.pem
-*.crt
-*.srl
-*.csr
-*.cnf
-*.ext
