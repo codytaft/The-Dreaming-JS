@@ -89,12 +89,19 @@ app.post('/api/v1/users', async (req, res) => {
 
   //***Save user id to database with user!!!!*/
   database('users')
-    .insert(newUser, 'id')
-    .then(userId => {
-      res.status(201).json({ userId });
-    })
-    .catch(error => {
-      res.status(500).json({ error });
+    .where('user_token', newUser.user_token)
+    .then(response => {
+      if (response.length > 0) {
+        return res.status(200).json(`Logged in as ${newUser.user_name}`);
+      }
+      return database('users')
+        .insert(newUser, 'id')
+        .then(userId => {
+          res.status(201).json({ userId });
+        })
+        .catch(error => {
+          res.status(500).json({ error });
+        });
     });
 });
 

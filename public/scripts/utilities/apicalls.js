@@ -34,7 +34,6 @@ googleAuthenticate = async id_token => {
   xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   xhr.send('idtoken=' + id_token);
   xhr.onload = await function() {
-    console.log('Signed in as: ' + xhr.responseText);
     addUser(xhr.responseText, id_token);
   };
 };
@@ -51,7 +50,6 @@ addUser = async (responseText, token) => {
       })
     });
     const newUser = await response.json();
-    console.log(await newUser);
   } catch (error) {
     console.log(error);
   }
