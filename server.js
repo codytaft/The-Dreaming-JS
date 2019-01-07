@@ -51,34 +51,50 @@ app.post(
 //dreams requests
 
 // Request all dreams
-app.get('/api/v1/dreams', (req, res) => {
-  database('dreams')
-    .select()
-    .then(dreams => {
-      res.status(200).json(dreams);
-    })
-    .catch(error => {
-      res.status(500).json({ error });
+app.get('/api/v1/users/:user_token/user_token', (req, res) => {
+  database('users')
+    .where('user_token', req.params.user_token)
+    .select('id')
+    .then(userId => {
+      database('dreams')
+        .where('user_id', userId)
+        .select()
+        .then(dreams => {
+          res.status(200).json(dreams);
+        })
+        .catch(error => {
+          res.status(500).json({ error });
+        });
     });
 });
 
 // Post new dream
 app.post('/api/v1/dreams', (req, res) => {
   let newDream = req.body;
-  for (let requiredParameter of ['date', 'dream']) {
-    if (!newDream[requiredParameter]) {
-      return res
-        .status(422)
-        .send({ error: `You are missing a ${requiredParameter} property.` });
-    }
-  }
-  database('dreams')
-    .insert(newDream, 'id')
-    .then(dreamId => {
-      res.status(201).json({ dreamId });
-    })
-    .catch(error => {
-      res.status(500).json({ error });
+  // for (let requiredParameter of ['date', 'dream']) {
+  //   if (!newDream[requiredParameter]) {
+  //     return res
+  //       .status(422)
+  //       .send({ error: `You are missing a ${requiredParameter} property.` });
+  //   }
+  // }
+  console.log(newDream.user_id);
+  database('users')
+    .where({ user_token: newDream.user_id })
+    .select('id')
+    .then(userId => {
+      database('dreams')
+        .insert(
+          { date: newDream.date, dream: newDream.dream, user_id: userId[0].id },
+          'id'
+        )
+        .then(dreamId => {
+          console.log(dreamId);
+          res.status(201).json({ dreamId });
+        })
+        .catch(error => {
+          res.status(500).json({ error });
+        });
     });
 });
 
@@ -87,21 +103,27 @@ app.post('/api/v1/users', async (req, res) => {
   let user = req.body;
   const newUser = await verify(user.userResponse, user.token);
 
-  //***Save user id to database with user!!!!*/
+  for (let requiredParameter of ['user_name', 'user_token']) {
+    if (!newUser[requiredParameter]) {
+      return res
+        .status(422)
+        .send({ error: `You are missing a ${requiredParameter} property.` });
+    }
+  }
   database('users')
     .where('user_token', newUser.user_token)
     .then(response => {
-      if (response.length > 0) {
-        return res.status(200).json(`Logged in as ${newUser.user_name}`);
+      if (response.length <= 0) {
+        return database('users')
+          .insert(newUser, 'id')
+          .then(userId => {
+            res.status(201).json(userId);
+          })
+          .catch(error => {
+            res.status(500).json({ error });
+          });
       }
-      return database('users')
-        .insert(newUser, 'id')
-        .then(userId => {
-          res.status(201).json({ userId });
-        })
-        .catch(error => {
-          res.status(500).json({ error });
-        });
+      return res.status(409).json(newUser);
     });
 });
 
