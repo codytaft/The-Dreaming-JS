@@ -5,6 +5,11 @@ const https = require('https');
 const path = require('path');
 const bodyParser = require('body-parser');
 const Houndify = require('houndify');
+const { OAuth2Client } = require('google-auth-library');
+const clientID =
+  '638905728157-h454ep1gttumk8p2ihqtbudfpnjima1a.apps.googleusercontent.com';
+const client = new OAuth2Client(clientID);
+
 require('dotenv').config();
 
 //knex
@@ -77,6 +82,35 @@ app.post('/api/v1/dreams', (req, res) => {
     });
 });
 
+//Authorize User
+app.post('/api/v1/users', async (req, res) => {
+  let user = req.body;
+  const newUser = await verify(user.userResponse, user.token);
+  //***Save user id to database with user!!!!*/
+  // let newUser = { name: user.userResponse.name, user_token: userid };
+  console.log(newUser);
+  database('users')
+    .insert(newUser, 'id')
+    .then(userId => {
+      res.status(201).json({ userId });
+    })
+    .catch(error => {
+      res.status(500).json({ error });
+    });
+});
+
+//Verification and get userid
+async function verify(userResponse, token) {
+  const ticket = await client.verifyIdToken({
+    idToken: token,
+    audience: clientID
+  });
+  const payload = ticket.getPayload();
+  const userid = payload['sub'];
+  const userName = payload['name'];
+  return { user_token: userid, name: userName };
+}
+
 //start http or https server
 if (config.https) {
   //ssl credentials
@@ -87,7 +121,9 @@ if (config.https) {
   //https server
   var httpsServer = https.createServer(credentials, app);
   httpsServer.listen(app.get('port'), () => {
-    console.log('The Dreaming running on port', port);
+    console.log(
+      `The Dreaming running on https server on port ${app.get('port')}`
+    );
   });
 } else {
   app.listen(app.get('port'), () => {
