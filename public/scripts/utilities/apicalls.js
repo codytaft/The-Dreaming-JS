@@ -1,5 +1,5 @@
-let currentUser;
 saveDreamToDatabase = async (date, dream) => {
+  let currentUser = localStorage.getItem('currentUser');
   console.log(currentUser);
   try {
     const url = window.location.href + `api/v1/dreams`;
@@ -55,7 +55,7 @@ authorizeUser = async token => {
     });
     const userId = await response.json();
     getUserDreams(userId[0].id);
-    currentUser = userId[0].id;
+    localStorage.setItem('currentUser', JSON.stringify(userId[0].id));
     return await userId[0].id;
   } catch (error) {
     console.log(error);
