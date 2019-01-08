@@ -1,7 +1,9 @@
 # The-Dreaming-JS
 A dream journal App
 
-Launch Application --> [Here](https://the-dreaming.herokuapp.com/)
+### Houndify voice-text only working in Firefox at the moment
+
+Launch Application --> [Here](https://the-dreaming.herokuapp.com/) 
 
 ## Set Up
 
