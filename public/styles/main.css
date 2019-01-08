@@ -91,14 +91,25 @@ p:last-child {
 #myChart-graph-id0-path {
   fill: none;
 }
-
+.dream-date {
+  margin-bottom: 0.7rem;
+}
 .dream-list {
   color: whitesmoke;
   text-align: left;
 }
 
 .dream-list-item {
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
+}
+
+.fa-trash-alt {
+  margin-left: 1rem;
+}
+
+.fa-trash-alt:hover {
+  color: crimson;
+  cursor: pointer;
 }
 
 #status.ui.info.message {
