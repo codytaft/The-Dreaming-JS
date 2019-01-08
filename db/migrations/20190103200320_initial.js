@@ -4,6 +4,7 @@ exports.up = function(knex, Promise) {
       table.increments('user_id').primary();
       table.string('user_name');
       table.string('user_token');
+      table.boolean('current_user');
     }),
     knex.schema.createTable('dreams', table => {
       table.increments('dream_id').primary();
