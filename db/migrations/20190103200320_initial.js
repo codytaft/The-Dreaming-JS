@@ -11,14 +11,14 @@ exports.up = function(knex, Promise) {
       table.text('dream');
       table.date('date');
       table.integer('user_id').unsigned();
-      table.foreign('user_id').references('users.id');
+      table.foreign('user_id').references('users.user_id');
     })
   ]);
 };
 
 exports.down = function(knex, Promise) {
   return Promise.all([
-    knex.schema.dropTable('dreams'),
-    knex.schema.dropTable('users')
+    knex.schema.dropTableIfExists('dreams'),
+    knex.schema.dropTableIfExists('users')
   ]);
 };
