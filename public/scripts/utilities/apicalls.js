@@ -78,19 +78,6 @@ makeWordCloud = dreams => {
   });
 };
 
-displayDreams = dreams => {
-  $(document).ready(function() {
-    $('.dream-list').empty();
-    dreams.forEach(dream => {
-      $('.dream-list').prepend(`
-          <li id=${dream.id} class="dream-list-item">
-            <h4>${dream.date.slice(0, 10)}</h4>
-            <p>${dream.dream}</p>
-            `);
-    });
-  });
-};
-
 setCurrentUser = async userId => {
   try {
     const url = window.location.href + `api/v1/users/${userId}`;
@@ -116,6 +103,18 @@ logoutUser = async () => {
       body: JSON.stringify({
         currentUser: false
       })
+    });
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+deleteDreamFromDatabase = async dreamId => {
+  try {
+    const url = window.location.href + `api/v1/dreams/${dreamId}`;
+    const response = await fetch(url, {
+      method: 'DELETE'
     });
     return await response.json();
   } catch (error) {

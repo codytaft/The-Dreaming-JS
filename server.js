@@ -190,3 +190,15 @@ if (config.https) {
     console.log(`The Dreaming running on port ${app.get('port')}`);
   });
 }
+
+app.delete('/api/v1/dreams/:id', (request, response) => {
+  database('dreams')
+    .where({ dream_id: request.params.id })
+    .del()
+    .then(response => {
+      response.status(200).send('deleted');
+    })
+    .catch(error => {
+      response.status(500).json({ error });
+    });
+});
