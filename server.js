@@ -53,11 +53,11 @@ app.post(
 // Request user dreams
 app.get('/api/v1/users/:user_id/user_id', (req, res) => {
   database('users')
-    .where('id', req.params.user_id)
-    .select('id')
+    .where('user_id', req.params.user_id)
+    .select('user_id')
     .then(userId => {
       database('dreams')
-        .where('user_id', userId[0].id)
+        .where('user_id', userId[0].user_id)
         .select()
         .then(dreams => {
           res.status(200).json(dreams);
@@ -79,13 +79,17 @@ app.post('/api/v1/dreams', (req, res) => {
   //   }
   // }
   database('users')
-    .where({ id: newDream.user_id })
-    .select('id')
+    .where({ current_user: true })
+    .select('user_id')
     .then(userId => {
       database('dreams')
         .insert(
-          { date: newDream.date, dream: newDream.dream, user_id: userId[0].id },
-          'id'
+          {
+            date: newDream.date,
+            dream: newDream.dream,
+            user_id: userId[0].user_id
+          },
+          'dream_id'
         )
         .then(dreamId => {
           res.status(201).json({ dreamId });
@@ -122,7 +126,7 @@ app.post('/api/v1/users/authorize', async (req, res) => {
           });
       }
       return database('users')
-        .select('id')
+        .select('user_id')
         .where('user_token', newUser.user_token)
         .then(userId => {
           res.status(201).json(userId);
@@ -141,6 +145,31 @@ async function verify(token) {
   const userName = payload['name'];
   return { user_token: userid, user_name: userName };
 }
+//Login Current User
+app.patch('/api/v1/users/:id', (request, response) => {
+  database('users')
+    .where({ user_id: request.params.id })
+    .update({ current_user: true })
+    .then(response => {
+      response.status(200).send('Logged In!');
+    })
+    .catch(error => {
+      response.status(500).json({ error });
+    });
+});
+
+//Logout Current User
+app.patch('/api/v1/users', (request, response) => {
+  return database('users')
+    .where({ current_user: true })
+    .update({ current_user: false })
+    .then(response => {
+      response.status(200).send('Logged Out!');
+    })
+    .catch(error => {
+      response.status(500).json({ error });
+    });
+});
 
 //start http or https server
 if (config.https) {
