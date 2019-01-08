@@ -45,7 +45,7 @@ recorder.on('error', function(error) {
 });
 
 //Initialiaze voice request
-function initVoiceRequest(sampleRate) {
+initVoiceRequest = sampleRate => {
   let voiceRequest = new Houndify.VoiceRequest({
     //Your Houndify Client ID
     clientId: houndifyClientID,
@@ -90,9 +90,9 @@ function initVoiceRequest(sampleRate) {
     }
   });
   return voiceRequest;
-}
+};
 
-function onMicrophoneClick() {
+onMicrophoneClick = () => {
   if (recorder && recorder.isRecording()) {
     recorder.stop();
     return;
@@ -103,12 +103,12 @@ function onMicrophoneClick() {
   recordingUpdate.innerText = 'Streaming voice request...';
   voiceIcon.className = 'loading circle notched icon big';
   textSaveButton.disabled = true;
-}
+};
 
 //Fires after server responds with Response JSON
 //Info object contains useful information about the completed request
 //See https://houndify.com/reference/HoundServer
-function onResponse(response, info) {
+onResponse = (response, info) => {
   if (response.AllResults && response.AllResults.length) {
     //Pick and store appropriate ConversationState from the results.
     //This example takes the default one from the first result.
@@ -118,23 +118,23 @@ function onResponse(response, info) {
   textResult = response.AllResults[0].WrittenResponse;
   statusElt.innerText = textResult;
   statusElt.contentEditable = true;
-}
+};
 
 //Fires if error occurs during the request
-function onError(err, info) {
+onError = (err, info) => {
   statusElt.innerText = 'Error: ' + JSON.stringify(err);
-}
+};
 
 //Fires every time backend sends a speech-to-text
 //transcript of a voice query
 //See https://houndify.com/reference/HoundPartialTranscript
 
-function onTranscriptionUpdate(transcript) {
+onTranscriptionUpdate = transcript => {
   statusElt.innerText = transcript.PartialTranscript;
-}
+};
 
 //Save dream to database on click
-function onSaveClick() {
+onSaveClick = () => {
   let date = dateInput.value;
   let dream = statusElt.innerText;
   saveDreamToDatabase(date, dream);
@@ -146,4 +146,16 @@ function onSaveClick() {
   `);
 
   statusElt.innerText = 'Click on microphone icon or type dream here.';
-}
+};
+
+onTrashClick = e => {
+  $(e.target)
+    .parent()
+    .parent()
+    .remove();
+  let dreamId = $(e.target)
+    .parent()
+    .parent()
+    .attr('id');
+  deleteDreamFromDatabase(dreamId);
+};
