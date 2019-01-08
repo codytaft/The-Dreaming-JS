@@ -1,6 +1,4 @@
 saveDreamToDatabase = async (date, dream) => {
-  let currentUser = localStorage.getItem('currentUser');
-  console.log(currentUser);
   try {
     const url = window.location.href + `api/v1/dreams`;
     const response = await fetch(url, {
@@ -8,8 +6,7 @@ saveDreamToDatabase = async (date, dream) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         date: date,
-        dream: dream,
-        user_id: currentUser
+        dream: dream
       })
     });
     const newDream = await response.json();
@@ -20,6 +17,7 @@ saveDreamToDatabase = async (date, dream) => {
 };
 
 getUserDreams = async userId => {
+  console.log(userId);
   try {
     const url = window.location.href + `api/v1/users/${userId}/user_id`;
     const response = await fetch(url);
@@ -54,9 +52,9 @@ authorizeUser = async token => {
       })
     });
     const userId = await response.json();
-    getUserDreams(userId[0].id);
-    localStorage.setItem('currentUser', JSON.stringify(userId[0].id));
-    return await userId[0].id;
+    getUserDreams(userId[0].user_id);
+    setCurrentUser(userId[0].user_id);
+    return await userId[0].user_id;
   } catch (error) {
     console.log(error);
   }
@@ -91,4 +89,36 @@ displayDreams = dreams => {
             `);
     });
   });
+};
+
+setCurrentUser = async userId => {
+  try {
+    const url = window.location.href + `api/v1/users/${userId}`;
+    const response = await fetch(url, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        currentUser: true
+      })
+    });
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+logoutUser = async () => {
+  try {
+    const url = window.location.href + `api/v1/users`;
+    const response = await fetch(url, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        currentUser: false
+      })
+    });
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
 };
