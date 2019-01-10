@@ -1,11 +1,12 @@
-// $(window).on('load', () => {
-//   let dreamItem = $('.dream-list-item');
-//   console.log(dreamItem);
-//   // let searchValue = getElementByid('search')
-//   //   .value()
-//   //   .toLowerCase();
-// });
-
-// searchDreams = () => {
-//   console.log('hi');
-// };
+handleSearchChange = event => {
+  const value = event.target.value.toLowerCase();
+  let dreamsList = [...$('.dream-list')[0].children];
+  dreamsList.filter(dream => {
+    $(dream).toggle(
+      $(dream)
+        .text()
+        .toLowerCase()
+        .indexOf(value) > -1
+    );
+  });
+};
