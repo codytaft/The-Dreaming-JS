@@ -134,14 +134,17 @@ onTranscriptionUpdate = transcript => {
 };
 
 //Save dream to database on click
-onSaveClick = () => {
+onSaveClick = event => {
   let date = dateInput.value;
   let dream = statusElt.innerText;
   saveDreamToDatabase(date, dream);
 
   $('.dream-list').prepend(`
   <li class="dream-list-item">
-  <h4>${date.slice(0, 10)}</h4>
+  <h4>${date.slice(
+    0,
+    10
+  )}<i class="far fa-trash-alt" onclick="onTrashClick(event)"></i></h4>
   <p>${dream}</p>
   `);
 
