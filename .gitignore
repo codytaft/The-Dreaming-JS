@@ -64,9 +64,9 @@ typings/
 .DS_Store
 
 ssl files/
-.key
-.pem
-.srl
-.crt
-.csr.cnf
-.ext
+*.key
+*.pem
+*.srl
+*.crt
+*.csr.cnf
+*.ext
