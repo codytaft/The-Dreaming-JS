@@ -1,10 +1,9 @@
 displayDreams = dreams => {
-  console.log(dreams);
   $(document).ready(function() {
     $('.dream-list').empty();
     dreams.forEach(dream => {
       $('.dream-list').prepend(`
-          <li id=${dream.dream_id} class="dream-list-item">
+          <li id="${dream.dream_id} dream-list-item" class="dream-list-item">
             <h4 class="dream-date">${dream.date.slice(
               0,
               10

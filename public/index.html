@@ -87,29 +87,30 @@
         >
           <i class="save big icon"></i>
         </button>
-        <div class="ui search">
-          <div class="ui icon input">
-            <input
-              id="search"
-              class="prompt"
-              type="text"
-              placeholder="Search dreams..."
-            />
-            <i class="search icon"></i>
-          </div>
-          <div class="results"></div>
-        </div>
       </form>
+      <div class="ui search">
+        <div class="ui icon input">
+          <input
+            id="search"
+            class="prompt"
+            type="text"
+            placeholder="Search dreams..."
+            onkeyup="handleSearchChange(event)"
+          />
+          <i class="search icon"></i>
+        </div>
+        <div class="results"></div>
+      </div>
 
       <div id="myChart"></div>
 
       <div class="dream-container"><ul class="dream-list"></ul></div>
     </div>
-    <script src="scripts/utilities/dreamCounter.js"></script>
+    <script src="./scripts/utilities/dreamCounter.js"></script>
     <script src="scripts/utilities/wordCloud.js"></script>
     <script src="scripts/main.js"></script>
     <script src="scripts/utilities/getDate.js"></script>
     <script src="scripts/utilities//displayDreams.js"></script>
-    <script src="scripts/utilities/search.js"></script>
+    <script src="scripts/utilities/search.js" async></script>
   </body>
 </html>

@@ -17,7 +17,6 @@ saveDreamToDatabase = async (date, dream) => {
 };
 
 getUserDreams = async userId => {
-  console.log(userId);
   try {
     const url = window.location.href + `api/v1/users/${userId}/user_id`;
     const response = await fetch(url);

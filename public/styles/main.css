@@ -3,7 +3,9 @@ body {
 
   background-color: #282c34;
 }
-
+#app-display {
+  margin-top: 0;
+}
 ul {
   padding: 0;
 }
@@ -57,6 +59,10 @@ p:last-child {
   width: 100%;
 }
 
+#form {
+  margin-bottom: 0;
+}
+
 #date-input {
   width: 15rem;
 }
@@ -81,6 +87,10 @@ p:last-child {
 
 #recordingUpdate {
   color: crimson;
+}
+
+#search {
+  margin-bottom: 1rem;
 }
 
 #myChart {
