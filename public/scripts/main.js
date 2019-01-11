@@ -134,19 +134,19 @@ onTranscriptionUpdate = transcript => {
 };
 
 //Save dream to database on click
-onSaveClick = event => {
+onSaveClick = async event => {
   let date = dateInput.value;
   let dream = statusElt.innerText;
-  saveDreamToDatabase(date, dream);
-
-  $('.dream-list').prepend(`
-  <li class="dream-list-item">
-  <h4>${date.slice(
-    0,
-    10
-  )}<i class="far fa-trash-alt" onclick="onTrashClick(event)"></i></h4>
-  <p>${dream}</p>
-  `);
+  await saveDreamToDatabase(date, dream).then(dreamId => {
+    $('.dream-list').prepend(`
+    <li id="${dreamId.dreamId[0]}" class="dream-list-item">
+    <h4>${date.slice(
+      0,
+      10
+    )}<i class="far fa-trash-alt" onclick="onTrashClick(event)"></i></h4>
+    <p>${dream}</p>
+    `);
+  });
 
   statusElt.innerText = 'Click on microphone icon or type dream here.';
 };
