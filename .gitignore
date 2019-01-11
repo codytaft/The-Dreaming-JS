@@ -63,7 +63,7 @@ typings/
 #Desktop Services
 .DS_Store
 
-.ssl files/
+ssl files/
 .key
 .pem
 .srl
