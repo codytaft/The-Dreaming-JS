@@ -3,9 +3,11 @@ body {
 
   background-color: #282c34;
 }
+
 #app-display {
   margin-top: 0;
 }
+
 ul {
   padding: 0;
 }
@@ -64,7 +66,7 @@ p:last-child {
 }
 
 #date-input {
-  width: 15rem;
+  width: 11rem;
 }
 
 #textSaveButton {
@@ -89,13 +91,10 @@ p:last-child {
   color: crimson;
 }
 
-#search {
-  margin-bottom: 1rem;
-}
-
 #myChart {
   width: 100%;
   min-height: 150px;
+  margin-top: 1rem;
 }
 
 #myChart-graph-id0-path {
