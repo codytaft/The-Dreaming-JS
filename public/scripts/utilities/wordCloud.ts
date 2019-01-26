@@ -1,5 +1,5 @@
-"use strict";
 // let dreamsPromise = Promise.resolve(getAllDreams());
+
 // dreamsPromise
 //   .then(dreams => {
 //     return dreamCounter(dreams);
